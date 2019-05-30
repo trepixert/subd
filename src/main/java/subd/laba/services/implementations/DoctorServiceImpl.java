@@ -31,7 +31,11 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void save(Doctor doctor) {
-        doctorRepo.save(doctor);
+        Doctor d = doctorRepo.findById(doctor.getId())
+                .orElseThrow(IllegalArgumentException::new);
+        d.setFio(doctor.getFio());
+        d.setPosition(doctor.getPosition());
+        doctorRepo.save(d);
     }
 
     @Override

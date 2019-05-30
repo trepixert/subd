@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Страница создания</title>
+    <title>Страница регистрации</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -24,7 +24,7 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="../static/css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" rel="stylesheet">
 
 </head>
 
@@ -43,18 +43,15 @@
 
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter39705265 = new Ya.Metrika({ id:39705265, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/39705265" style="position:absolute; left:-9999px;" alt="Yandex.Metrika" /></div></noscript> <!-- /Yandex.Metrika counter -->
 
-
-<form class="form-signin" action="#" th:action="@{{id}(id=${doctor.id})}" th:object="${doctor}" method="post">
-
-    <label for="fio" class="sr-only">ФИО доктора</label>
-    <input type="text" class="form-control" th:field="*{fio}" id="fio" placeholder="FIO">
-    <span th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}"></span>
-
-    <label for="position" class="sr-only">Должность</label>
-    <input type="text" class="form-control" th:field="*{position}" id="position" placeholder="Position">
-    <span th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></span>
-
-    <input type="submit" value="Update couponToSeeADoctors">
+<form class="form-signin" th:action="@{addPatient}" method="post">
+    <h1 for="title" class="h3 mb-3 font-weight-normal">Please fill in all fields.</h1>
+    <label for="inputFIO" class="sr-only" >FIO</label>
+    <input type="username" id="inputFIO" class="form-control" name="fio" placeholder="FIO" required autofocus>
+    <label for="inputDate" class="sr-only">BirthDate</label>
+    <input type="date" id="inputDate" class="form-control" name="date" placeholder="DATE" required>
+    <label for="inputGender" class="sr-only">Gender</label>
+    <input type="text" id="inputGender" class="form-control" name="gender" placeholder="GENDER" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">ADD</button>
 </form>
 </body>
 </html>

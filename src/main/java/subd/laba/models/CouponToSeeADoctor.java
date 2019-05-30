@@ -2,16 +2,17 @@ package subd.laba.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "coupontoseeadoctor")
@@ -28,13 +29,12 @@ public class CouponToSeeADoctor {
     @Temporal(value = TemporalType.TIME)
     private Date timeOfIssue;
 
-    @ManyToMany(mappedBy = "couponToSeeADoctors")
-    private List<Patient> patient;
-
-    @ManyToMany(mappedBy = "couponToSeeADoctors")
-    private List<Doctor> doctor;
-
     private String numberOfCoupon;
+
+    @ManyToOne
+    private Patient patient;
+    @ManyToOne
+    private Doctor doctor;
 
     public CouponToSeeADoctor(Date dateOfAppointment, Date timeOfIssue, String numberOfCoupon) {
         this.dateOfAppointment = dateOfAppointment;
@@ -73,27 +73,27 @@ public class CouponToSeeADoctor {
         this.timeOfIssue = timeOfIssue;
     }
 
-    public List<Patient> getPatient() {
-        return patient;
-    }
-
-    public void setPatient(List<Patient> patient) {
-        this.patient = patient;
-    }
-
-    public List<Doctor> getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(List<Doctor> doctor) {
-        this.doctor = doctor;
-    }
-
     public String getNumberOfCoupon() {
         return numberOfCoupon;
     }
 
     public void setNumberOfCoupon(String numberOfCoupon) {
         this.numberOfCoupon = numberOfCoupon;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

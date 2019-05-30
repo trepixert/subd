@@ -20,11 +20,11 @@ public class Doctor {
         this.position = position;
     }
 
-    @ManyToMany
-    @JoinTable(name = "coupon_doctor_int" ,
+    @OneToMany
+    @JoinTable(name = "coupontoseeadoctor" ,
             joinColumns = @JoinColumn (name = "doctor_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "coupon_id", referencedColumnName = "id"))
-    private List<CouponToSeeADoctor> couponToSeeADoctors;
+            inverseJoinColumns = @JoinColumn(name = "id", referencedColumnName = "id"))
+    private List<Patient> couponToSeeADoctors;
 
     public Long getId() {
         return id;
@@ -50,11 +50,11 @@ public class Doctor {
         this.position = position;
     }
 
-    public List<CouponToSeeADoctor> getCouponToSeeADoctors() {
+    public List<Patient> getCouponToSeeADoctors() {
         return couponToSeeADoctors;
     }
 
-    public void setCouponToSeeADoctors(List<CouponToSeeADoctor> couponToSeeADoctors) {
+    public void setCouponToSeeADoctors(List<Patient> couponToSeeADoctors) {
         this.couponToSeeADoctors = couponToSeeADoctors;
     }
 }

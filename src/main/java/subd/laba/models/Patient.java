@@ -22,21 +22,10 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String fio, String gender) {
-        this.fio = fio;
-        this.gender = gender;
-    }
-
-    public Patient(String fio, Date date, String gender) {
-        this.fio = fio;
-        this.birthDate = date;
-        this.gender = gender;
-    }
-
-    @ManyToMany
-    @JoinTable(name = "coupon_patient_int" ,
+    @OneToMany
+    @JoinTable(name = "coupontoseeadoctor" ,
             joinColumns = @JoinColumn (name = "patient_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "coupon_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "id", referencedColumnName = "id"))
     private List<CouponToSeeADoctor> couponToSeeADoctors;
 
     public Long getId() {

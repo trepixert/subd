@@ -32,10 +32,13 @@ public class MainPageController {
         model.addAttribute("patients",patientService.findAll());
         model.addAttribute("doctors", doctorService.findAll());
         model.addAttribute("coupons",couponToSeeADoctorService.findAll());
-        model.addAttribute("patientsWithCoupons",patientService.findAllByQuery());
+        model.addAttribute("patientsWithCoupon",patientService.findAllByQuery());
         return "main";
     }
 
+    /**
+     * EDITS
+     */
     @GetMapping("patient/edit/{id}")
     public String patientEdit(@PathVariable(name = "id") long id, Model model){
         Patient patient = patientService.findById(id)
@@ -96,6 +99,10 @@ public class MainPageController {
         return "redirect:/home";
     }
 
+    /**
+     *
+     * DELETE
+     */
     @GetMapping("patient/delete/{id}")
     public String deletePatient(@PathVariable("id") long id, Model model) {
         Patient patient = patientService.findById(id)
@@ -114,8 +121,52 @@ public class MainPageController {
         return "redirect:/home";
     }
 
-/*    @GetMapping("/addPatient")
-    public String addPatient(){
+    @GetMapping("coupon/delete/{id}")
+    public String deleteCoupon(@PathVariable("id") long id, Model model) {
+        CouponToSeeADoctor coupon = couponToSeeADoctorService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        couponToSeeADoctorService.delete(coupon);
+        model.addAttribute("coupons", couponToSeeADoctorService.findAll());
+        return "redirect:/home";
+    }
 
-    }*/
+    /**
+     *  ADD
+     */
+
+    @GetMapping("patient/addPatient")
+    public String addPatient(){
+        return "parts/addPatient";
+    }
+
+    @PostMapping("patient/addPatient")
+    public String addPatient(Patient patient, Model model){
+        patientService.save(patient);
+        model.addAttribute("patients", patientService.findAll());
+        return "redirect:/home";
+    }
+
+    @GetMapping("doctor/addDoctor")
+    public String addDoctor(){
+        return "parts/addDoctor";
+    }
+
+    @PostMapping("doctor/addDoctor")
+    public String addDoctor(Doctor doctor, Model model){
+        doctorService.save(doctor);
+        model.addAttribute("doctors", doctorService.findAll());
+        return "redirect:/home";
+    }
+
+    @GetMapping("coupon/addCoupon")
+    public String addCoupon(){
+        return "parts/addCoupon";
+    }
+
+    @PostMapping("coupon/addCoupon")
+    public String addCoupon(CouponToSeeADoctor coupon, Model model){
+        couponToSeeADoctorService.save(coupon);
+        model.addAttribute("coupons", couponToSeeADoctorService.findAll());
+        return "redirect:/home";
+    }
 }

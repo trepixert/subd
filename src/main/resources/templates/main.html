@@ -114,6 +114,7 @@
                         </td>
                     </tr>
                     </tbody>
+                    <span><a th:href="@{patient/addPatient}">Create new patients</a></span>
                 </table>
 
                 <table class="table table-striped table-sm">
@@ -125,7 +126,7 @@
                     </thead>
                     <tbody>
                     <tr th:if="${doctors.empty}">
-                        <td colspan="2"> No doctors found</td>
+                        <td colspan="2"> No couponToSeeADoctors found</td>
                     </tr>
                     <tr th:each="doctor : ${doctors}">
                         <td>
@@ -140,6 +141,7 @@
                         </td>
                     </tr>
                     </tbody>
+                    <span><a th:href="@{doctor/addDoctor}">Create new couponToSeeADoctors</a></span>
                 </table>
 
                 <table class="table table-striped table-sm">
@@ -164,14 +166,14 @@
                         <td>
                             <span th:text="${coupon.numberOfCoupon}"></span>
                         </td>
-                        <td><a th:href="@{couponToSeeADoctorEdit/edit/{id}(id=${coupon.id})}">Edit</a></td>
+                        <td><a th:href="@{coupon/edit/{id}(id=${coupon.id})}">Edit</a></td>
                         <td>
-                            <span><a th:href="@{home/delete/{id}(id=${coupon.id})}">Delete</a></span>
+                            <span><a th:href="@{coupon/delete/{id}(id=${coupon.id})}">Delete</a></span>
                         </td>
                     </tr>
                     </tbody>
+                    <span><a th:href="@{coupon/addCoupon}">Create new coupon</a></span>
                 </table>
-
                 <table class="table table-striped table-sm">
                     <thead>
                     <tr>
@@ -186,10 +188,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${patients.empty}">
+                    <tr th:if="${patientsWithCoupon.empty}">
                         <td colspan="2"> No records found</td>
                     </tr>
-                    <tr th:each="patient : ${patientsWithCoupons}">
+                    <tr th:each="patient : ${patientsWithCoupon}">
                         <td>
                             <span th:text="${patient.fio}"></span>
                         </td>
@@ -221,17 +223,20 @@
                         </td>
                         <td>
                             <ul th:each="coupon : ${patient.couponToSeeADoctors}">
-                                <li th:each="doctor : ${coupon.doctor}" th:text="${doctor.fio}"></li>
+                                <li th:text="${coupon.doctor.fio}"></li>
                             </ul>
                         </td>
                         <td>
                             <ul th:each="coupon : ${patient.couponToSeeADoctors}">
-                                <li th:each="doctor : ${coupon.doctor}" th:text="${doctor.position}"></li>
+                                <li th:text="${coupon.doctor.position}"></li>
                             </ul>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+        </main>
+    </div>
+</div>
 </body>
 </html>

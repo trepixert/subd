@@ -11,6 +11,7 @@ public interface PatientService {
     Optional<Patient> findById(Long id);
     void save(Patient patient);
     void delete(Patient patient);
-    List<Patient> findAllByQuery();
     Patient findPatientByCouponToSeeADoctors(List<CouponToSeeADoctor> coupon);
+    Patient findPatientByFio(String fio);
+    List<Patient> findAllByQuery();
 }

@@ -37,7 +37,12 @@ public class CouponToSeeADoctorServiceImpl implements CouponToSeeADoctorService 
 
     @Override
     public void save(CouponToSeeADoctor coupon) {
-        couponToSeeADoctorRepo.save(coupon);
+        CouponToSeeADoctor c = couponToSeeADoctorRepo.findById(coupon.getId())
+                .orElseThrow(IllegalArgumentException::new);
+        c.setDateOfAppointment(coupon.getDateOfAppointment());
+        c.setNumberOfCoupon(coupon.getNumberOfCoupon());
+        c.setTimeOfIssue(coupon.getTimeOfIssue());
+        couponToSeeADoctorRepo.save(c);
     }
 
     @Override
@@ -58,8 +63,6 @@ public class CouponToSeeADoctorServiceImpl implements CouponToSeeADoctorService 
         doctor.getCouponToSeeADoctors().remove(coupon);
         patientService.save(patient);
         doctorService.save(doctor);
-        coupon.getPatient().clear();
-        coupon.getDoctor().clear();
     }
 
     @Override

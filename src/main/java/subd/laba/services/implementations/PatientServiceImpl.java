@@ -30,7 +30,12 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void save(Patient patient) {
-        patientRepo.save(patient);
+        Patient p = patientRepo.findById(patient.getId()).orElseThrow(() ->
+                new IllegalArgumentException("Invalid user by id"));
+        p.setBirthDate(patient.getBirthDate());
+        p.setFio(patient.getFio());
+        p.setGender(patient.getGender());
+        patientRepo.save(p);
     }
 
     @Override
@@ -41,13 +46,18 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> findAllByQuery() {
-        return patientRepo.findAllByQuery();
+    public Patient findPatientByCouponToSeeADoctors(List<CouponToSeeADoctor> coupon) {
+        return patientRepo.findPatientByCouponToSeeADoctors(coupon);
     }
 
     @Override
-    public Patient findPatientByCouponToSeeADoctors(List<CouponToSeeADoctor> coupon) {
-        return patientRepo.findPatientByCouponToSeeADoctors(coupon);
+    public Patient findPatientByFio(String fio) {
+        return patientRepo.findPatientByFio(fio);
+    }
+
+    @Override
+    public List<Patient> findAllByQuery() {
+        return patientRepo.findAllByQuery();
     }
 
 }
